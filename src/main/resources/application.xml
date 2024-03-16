@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-<!--        <property name="locations" value="application.properties"/>-->
-        <property name="locations" value="classpath:application.properties"/>
-    </bean>
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                             http://www.springframework.org/schema/beans/spring-beans.xsd
+                             http://www.springframework.org/schema/context
+                             http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+    <context:property-placeholder location="classpath:application.properties"/>
+    <!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+<!--        <property name="locations" value="classpath:application.properties"/>-->
+<!--    </bean>-->
     <bean id="driver" class="java.lang.String">
-        <constructor-arg type="java.lang.String" value="PostgresDriver"/>
+        <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
     <bean name="rybina1, rybina2" class="core.rybina.database.ConnectionPool" destroy-method="destroy">
-        <constructor-arg index="1" value="10"/>
+        <constructor-arg name="poolSize" index="1" value="${db.pool.size}"/>
         <constructor-arg name="username" index="0" type="java.lang.String" ref="driver"/>
         <constructor-arg>
             <list>
@@ -37,6 +41,8 @@
                 <entry key="password" value="12345"/>
                 <!--                    в ссылку на бин мы указываем айдишник бина/ альяс-->
                 <entry key="driver" value-ref="driver"/>
+                <entry key="test1" value="#{driver.toString() + 'kikiki'}"/>
+                <entry key="test2" value="#{'${db.hosts}'.split(',')}"/>
             </map>
         </property>
     </bean>
