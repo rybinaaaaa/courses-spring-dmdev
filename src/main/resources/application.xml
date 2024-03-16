@@ -29,7 +29,7 @@
             </map>
         </constructor-arg>
     </bean>
-    <bean id="companyRepository" class="core.rybina.database.pool.CompanyRepository">
+    <bean id="companyRepository" class="core.rybina.database.pool.CompanyRepository" factory-method="of">
         <constructor-arg ref="rybina1"/>
     </bean>
 </beans>
