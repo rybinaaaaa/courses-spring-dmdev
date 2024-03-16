@@ -2,26 +2,34 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-<!--    <bean name="rybina1, rybina2" class="core.rybina.database.ConnectionPool"/>-->
-<!--    <bean name="rybina3, rybina4" id="id2" class="core.rybina.database.ConnectionPool"/>-->
-        <bean name="rybina1, rybina2" class="core.rybina.database.ConnectionPool">
-            <constructor-arg index="1" value="10" />
-            <constructor-arg index="0" value="postgres" />
-            <constructor-arg>
-                <list>
-                    <value>
-                        --arg1=value1
-                    </value>
-                    <value>
-                        --arg2=value2
-                    </value>
-                </list>
-            </constructor-arg>
-            <constructor-arg>
-                <map>
-                    <entry key="url" value="postgresurl" />
-                    <entry key="password" value="12345" />
-                </map>
-            </constructor-arg>
-        </bean>
+    <!--    <bean name="rybina1, rybina2" class="core.rybina.database.ConnectionPool"/>-->
+    <!--    <bean name="rybina3, rybina4" id="id2" class="core.rybina.database.ConnectionPool"/>-->
+    <bean id="driver" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="PostgresDriver"/>
+    </bean>
+    <bean name="rybina1, rybina2" class="core.rybina.database.ConnectionPool">
+        <constructor-arg index="1" value="10"/>
+        <constructor-arg name="username" index="0" type="java.lang.String" ref="driver"/>
+        <constructor-arg>
+            <list>
+                <value>
+                    --arg1=value1
+                </value>
+                <value>
+                    --arg2=value2
+                </value>
+            </list>
+        </constructor-arg>
+        <constructor-arg>
+            <map>
+                <entry key="url" value="postgresurl"/>
+                <entry key="password" value="12345"/>
+                <!--                    в ссылку на бин мы указываем айдишник бина/ альяс-->
+                <entry key="driver" value-ref="driver"/>
+            </map>
+        </constructor-arg>
+    </bean>
+    <bean id="companyRepository" class="core.rybina.database.pool.CompanyRepository">
+        <constructor-arg ref="rybina1"/>
+    </bean>
 </beans>
