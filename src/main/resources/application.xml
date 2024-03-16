@@ -7,7 +7,7 @@
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="PostgresDriver"/>
     </bean>
-    <bean name="rybina1, rybina2" class="core.rybina.database.ConnectionPool">
+    <bean name="rybina1, rybina2" class="core.rybina.database.ConnectionPool" init-method="init">
         <constructor-arg index="1" value="10"/>
         <constructor-arg name="username" index="0" type="java.lang.String" ref="driver"/>
         <constructor-arg>
