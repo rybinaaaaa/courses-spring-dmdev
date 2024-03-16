@@ -2,8 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <!--    <bean name="rybina1, rybina2" class="core.rybina.database.ConnectionPool"/>-->
-    <!--    <bean name="rybina3, rybina4" id="id2" class="core.rybina.database.ConnectionPool"/>-->
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+<!--        <property name="locations" value="application.properties"/>-->
+        <property name="locations" value="classpath:application.properties"/>
+    </bean>
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="PostgresDriver"/>
     </bean>
@@ -21,12 +23,12 @@
             </list>
         </constructor-arg>
         <constructor-arg name="properties">
-<!--            <map>-->
-<!--                <entry key="url" value="postgresurl"/>-->
-<!--                <entry key="password" value="12345"/>-->
-<!--                &lt;!&ndash;                    в ссылку на бин мы указываем айдишник бина/ альяс&ndash;&gt;-->
-<!--                <entry key="driver" value-ref="driver"/>-->
-<!--            </map>-->
+            <!--            <map>-->
+            <!--                <entry key="url" value="postgresurl"/>-->
+            <!--                <entry key="password" value="12345"/>-->
+            <!--                &lt;!&ndash;                    в ссылку на бин мы указываем айдишник бина/ альяс&ndash;&gt;-->
+            <!--                <entry key="driver" value-ref="driver"/>-->
+            <!--            </map>-->
             <null/>
         </constructor-arg>
         <property name="properties">
