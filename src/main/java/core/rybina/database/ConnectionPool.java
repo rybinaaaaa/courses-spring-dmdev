@@ -1,5 +1,7 @@
 package core.rybina.database;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.List;
@@ -23,16 +25,18 @@ public class ConnectionPool implements InitializingBean {
         this.properties = properties;
     }
 
-//    private void init() {
-//        System.out.println("Init connection pool");
-//    }
+    @PostConstruct
+    private void init() {
+        System.out.println("Init connection pool");
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("Properties set");
     }
 
+    @PreDestroy
     private void destroy() {
-        System.out.println("Destroy bean");
+        System.out.println("Destroy connection pool");
     }
 }
