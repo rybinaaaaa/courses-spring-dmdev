@@ -10,7 +10,7 @@ import org.springframework.core.PriorityOrdered;
 public class VerifyPropertyLogBeanFactoryPostProcessor implements BeanFactoryPostProcessor, PriorityOrdered {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        System.out.println();
+//        System.out.println();
     }
 
     @Override

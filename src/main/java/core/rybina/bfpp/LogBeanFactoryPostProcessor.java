@@ -9,7 +9,7 @@ public class LogBeanFactoryPostProcessor implements BeanFactoryPostProcessor, Or
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        System.out.println();
+//        System.out.println();
     }
 
     @Override

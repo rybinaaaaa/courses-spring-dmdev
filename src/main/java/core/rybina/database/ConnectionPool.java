@@ -27,16 +27,16 @@ public class ConnectionPool implements InitializingBean {
 
     @PostConstruct
     private void init() {
-        System.out.println("Init connection pool");
+//        System.out.println("Init connection pool");
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("Properties set");
+//        System.out.println("Properties set");
     }
 
     @PreDestroy
     private void destroy() {
-        System.out.println("Destroy connection pool");
+//        System.out.println("Destroy connection pool");
     }
 }
