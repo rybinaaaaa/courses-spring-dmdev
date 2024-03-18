@@ -1,18 +1,27 @@
 package core.rybina.database;
 
+import core.rybina.bfpp.Audited;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 import java.util.Map;
 
 public class ConnectionPool implements InitializingBean {
 
-    private final String username;
-    private final String poolSize;
-    private final List<Object> args;
+    private  String username;
+
+    @Autowired
+    @Value("${db.pool.size}")
+    private  String poolSize;
+    private  List<Object> args;
     private Map<String, Object> properties;
+
+    public ConnectionPool() {
+    }
 
     public ConnectionPool(String username, String poolSize, List<Object> args, Map<String, Object> properties) {
         this.username = username;
