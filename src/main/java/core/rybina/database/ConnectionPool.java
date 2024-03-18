@@ -6,42 +6,26 @@ import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
-public class ConnectionPool implements InitializingBean {
+@Component
+public class ConnectionPool {
 
-    private  String username;
+    private final String username;
+    private final String poolSize;
 
-    @Autowired
-    @Value("${db.pool.size}")
-    private  String poolSize;
-    private  List<Object> args;
-    private Map<String, Object> properties;
-
-    public ConnectionPool() {
-    }
-
-    public ConnectionPool(String username, String poolSize, List<Object> args, Map<String, Object> properties) {
+//    @Autowired будет тут установлена по умолчанию так, что можно не писать
+    public ConnectionPool(@Value("${db.username}") String username, @Value("${db.pool.size}") String poolSize) {
         this.username = username;
         this.poolSize = poolSize;
-        this.args = args;
-        this.properties = properties;
-    }
-
-    public void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
     }
 
     @PostConstruct
     private void init() {
 //        System.out.println("Init connection pool");
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-//        System.out.println("Properties set");
     }
 
     @PreDestroy

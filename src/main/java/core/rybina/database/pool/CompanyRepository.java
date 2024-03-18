@@ -9,18 +9,23 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Transaction
 @Audited
+@Repository("companyRepository")
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    @Qualifier("rybina1")
-    @Autowired
-    private ConnectionPool connectionPool;
+    private final ConnectionPool connectionPool;
 
-//    Equal to
+    public CompanyRepository(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
+    }
+
+    //    Equal to
 //    @Resource(name = "rybina1")
 //    private ConnectionPool connectionPool;
 
