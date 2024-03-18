@@ -1,6 +1,7 @@
 package core.rybina.database.pool;
 
 import core.rybina.beanPostProcessor.InjectBean;
+import core.rybina.bfpp.Audited;
 import core.rybina.bfpp.Transaction;
 import core.rybina.database.ConnectionPool;
 import core.rybina.database.entity.Company;
@@ -8,6 +9,7 @@ import jakarta.annotation.PostConstruct;
 import java.util.Optional;
 
 @Transaction
+@Audited
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     @InjectBean
