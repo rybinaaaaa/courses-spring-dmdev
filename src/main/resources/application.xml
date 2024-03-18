@@ -8,7 +8,13 @@
                              http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     <context:property-placeholder location="classpath:application.properties"/>
     <context:annotation-config/>
-    <context:component-scan base-package="core.rybina" />
+    <context:component-scan base-package="core.rybina"
+                            annotation-config="true"
+                            resource-pattern="**/*.class"
+                            scoped-proxy="no"
+                            use-default-filters="true"
+    />
+    <!--                            name-generator="" генерация айдишников-->
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
