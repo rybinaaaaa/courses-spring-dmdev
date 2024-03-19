@@ -11,6 +11,9 @@ public class ApplicationRunner {
     public static void main(String[] args) {
         try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConfigurationApplication.class)) {
             var companyRepository = context.getBean("companyRepository", CrudRepository.class);
+            context.getEnvironment().setActiveProfiles("web", "prod");
+//            ПЕРЕСОЗДАЕМ БИНЫ, ЧТОБЫ НЕПОДХОДЯЩИЕ НЕ СОЗДАВАЛИСЬ!
+            context.refresh();
             System.out.println(companyRepository.findById(1));
         }
     }
