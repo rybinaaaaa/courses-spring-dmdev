@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 //@Scope("prototype")
@@ -24,9 +25,11 @@ import java.util.Optional;
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     private final ConnectionPool connectionPool;
+    private final List<ConnectionPool> connectionPools;
 
-    public CompanyRepository(ConnectionPool connectionPool) {
+    public CompanyRepository(@Qualifier("pool2") ConnectionPool connectionPool, List<ConnectionPool> connectionPools) {
         this.connectionPool = connectionPool;
+        this.connectionPools = connectionPools;
     }
 
     //    Equal to

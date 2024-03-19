@@ -15,10 +15,10 @@ import java.util.Map;
 public class ConnectionPool {
 
     private final String username;
-    private final String poolSize;
+    private final Integer poolSize;
 
 //    @Autowired будет тут установлена по умолчанию так, что можно не писать
-    public ConnectionPool(@Value("${db.username}") String username, @Value("${db.pool.size}") String poolSize) {
+    public ConnectionPool(@Value("${db.username}") String username, @Value("${db.pool.size}") Integer poolSize) {
         this.username = username;
         this.poolSize = poolSize;
     }
