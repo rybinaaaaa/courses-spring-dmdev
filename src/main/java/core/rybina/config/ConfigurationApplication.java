@@ -30,12 +30,12 @@ public class ConfigurationApplication {
 
     @Bean
     @Profile("!prod")
-    public ConnectionPool pool3(){
-        return new ConnectionPool("test-pool", 25);
+    public ConnectionPool pool3(@Value("${db.pool.size}") Integer size){
+        return new ConnectionPool("test-pool", size);
     }
 
     @Bean
-    public CompanyRepository companyRepository3() {
-        return new CompanyRepository(pool3(), List.of(pool3()));
+    public CompanyRepository companyRepository3(@Value("${db.pool.size}") Integer size) {
+        return new CompanyRepository(pool3(size), List.of(pool3(size)));
     }
 }
