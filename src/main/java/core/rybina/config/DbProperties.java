@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Data
 @NoArgsConstructor
-@Component
 @ConfigurationProperties(prefix = "db")
 public class DbProperties {
     private String username;
