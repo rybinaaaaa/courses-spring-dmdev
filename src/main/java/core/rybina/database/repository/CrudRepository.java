@@ -1,4 +1,4 @@
-package core.rybina.database.pool;
+package core.rybina.database.repository;
 
 import java.util.Optional;
 

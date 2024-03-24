@@ -18,7 +18,7 @@
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
-<!--    <bean id="rybina2" class="core.rybina.database.ConnectionPool">-->
+<!--    <bean id="rybina2" class="core.rybina.database.pool.ConnectionPool">-->
 <!--        <constructor-arg name="poolSize" index="1" value="${db.pool.size}"/>-->
 <!--        <constructor-arg name="username" index="0" type="java.lang.String" ref="driver"/>-->
 <!--        <constructor-arg>-->

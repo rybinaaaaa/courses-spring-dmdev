@@ -1,17 +1,13 @@
-package core.rybina.database.pool;
+package core.rybina.database.repository;
 
-import core.rybina.beanPostProcessor.InjectBean;
 import core.rybina.bfpp.Audited;
 import core.rybina.bfpp.Transaction;
-import core.rybina.database.ConnectionPool;
+import core.rybina.database.pool.ConnectionPool;
 import core.rybina.database.entity.Company;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

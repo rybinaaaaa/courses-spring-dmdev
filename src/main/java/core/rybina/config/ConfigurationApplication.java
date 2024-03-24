@@ -1,8 +1,8 @@
 package core.rybina.config;
 
-import core.rybina.database.ConnectionPool;
-import core.rybina.database.pool.CompanyRepository;
-import core.rybina.database.pool.CrudRepository;
+import core.rybina.database.pool.ConnectionPool;
+import core.rybina.database.repository.CompanyRepository;
+import core.rybina.database.repository.CrudRepository;
 import core.web.config.ConfigurationWebApplication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;

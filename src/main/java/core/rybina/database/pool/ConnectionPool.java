@@ -1,4 +1,4 @@
-package core.rybina.database;
+package core.rybina.database.pool;
 
 import core.rybina.bfpp.Audited;
 import jakarta.annotation.PostConstruct;
