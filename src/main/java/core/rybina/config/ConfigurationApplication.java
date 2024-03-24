@@ -15,7 +15,7 @@ import static org.springframework.context.annotation.ComponentScan.*;
 //@ImportResource("classpath:application.xml")
 @Configuration
 @Import(ConfigurationWebApplication.class)
-@PropertySource("classpath:application.properties")
+//@PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "core.rybina", useDefaultFilters = false, includeFilters = {
         @Filter(type = FilterType.ANNOTATION, value = Component.class),
         @Filter(type = FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),

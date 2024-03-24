@@ -5,6 +5,7 @@ import core.rybina.bfpp.Transaction;
 import core.rybina.database.pool.ConnectionPool;
 import core.rybina.database.entity.Company;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -17,16 +18,13 @@ import java.util.Optional;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Transaction
 @Audited
+@RequiredArgsConstructor
 @Repository("companyRepository")
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
+    @Qualifier("pool2")
     private final ConnectionPool connectionPool;
     private final List<ConnectionPool> connectionPools;
-
-    public CompanyRepository(@Qualifier("pool2") ConnectionPool connectionPool, List<ConnectionPool> connectionPools) {
-        this.connectionPool = connectionPool;
-        this.connectionPools = connectionPools;
-    }
 
     //    Equal to
 //    @Resource(name = "rybina1")
