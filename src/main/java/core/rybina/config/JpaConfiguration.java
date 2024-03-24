@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JpaConfiguration {
 
-    @ConfigurationProperties(prefix = "db")
-    @Bean
-    public DbProperties dbProperties() {
-        return new DbProperties();
-    }
+//    @ConfigurationProperties(prefix = "db")
+//    @Bean
+//    public DbProperties dbProperties() {
+//        return new DbProperties();
+//    }
 
     @PostConstruct
     void init() {

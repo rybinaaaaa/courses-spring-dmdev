@@ -2,12 +2,16 @@ package core.rybina.config;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
 @Data
 @NoArgsConstructor
+@Component
+@ConfigurationProperties(prefix = "db")
 public class DbProperties {
     private String username;
     private String password;
