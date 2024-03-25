@@ -6,6 +6,7 @@ import core.rybina.database.integration.annotation.IT;
 import core.rybina.database.service.CompanyService;
 import core.rybina.dto.CompanyReadDto;
 import core.rybina.listener.entity.EntityEvent;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.ConfigDataApplicationContextInitial
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -34,10 +36,12 @@ import static org.mockito.Mockito.verify;
 //@SpringBootTest
 
 @IT
+@RequiredArgsConstructor
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class CompanyServiceIT {
     private static final Integer COMPANY_ID = 1;
 
-    @Autowired
+//    @Autowired
     CompanyService companyService;
 
     @Test
