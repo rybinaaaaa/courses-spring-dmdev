@@ -23,6 +23,8 @@ db:
 spring.profiles.active: qa
 logging:
   level:
-    root: WARN
+    root: DEBUG
     core.rybina.config.JpaConfiguration: INFO
     core.rybina.config: DEBUG
+  file:
+    name: ./src/main/java/core/rybina/rybina.log
