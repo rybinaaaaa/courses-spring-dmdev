@@ -42,7 +42,7 @@ public class CompanyServiceIT {
     private static final Integer COMPANY_ID = 1;
 
 //    @Autowired
-    CompanyService companyService;
+    private final CompanyService companyService;
 
     @Test
     void findById() {
