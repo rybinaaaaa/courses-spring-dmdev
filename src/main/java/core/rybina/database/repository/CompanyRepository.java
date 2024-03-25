@@ -6,6 +6,7 @@ import core.rybina.database.pool.ConnectionPool;
 import core.rybina.database.entity.Company;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Transaction
 @Audited
 @RequiredArgsConstructor
+@Slf4j
 @Repository("companyRepository")
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
@@ -32,17 +34,17 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     @PostConstruct
     private void init() {
-        System.out.println("Init company Repository");
+        log.info("Init company Repository");
     }
 
     @Override
     public Optional<Company> findById(Integer id) {
-        System.out.println("Find By id method....");
+        log.info("Find By id method....");
         return Optional.of(new Company(id));
     }
 
     @Override
     public void delete(Company entity) {
-        System.out.println("Delete By entity method....");
+        log.info("Delete By entity method....");
     }
 }

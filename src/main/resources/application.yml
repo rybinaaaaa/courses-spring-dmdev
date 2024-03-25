@@ -18,4 +18,11 @@ db:
       timeout: 3
     - size: 3
       timeout: 3
-#  spring.profiles.active=qa
+
+
+spring.profiles.active: qa
+logging:
+  level:
+    root: WARN
+    core.rybina.config.JpaConfiguration: INFO
+    core.rybina.config: DEBUG
