@@ -2,6 +2,7 @@ package core.rybina.database.integration;
 
 import core.rybina.ApplicationRunner;
 import core.rybina.database.entity.Company;
+import core.rybina.database.integration.annotation.IT;
 import core.rybina.database.service.CompanyService;
 import core.rybina.dto.CompanyReadDto;
 import core.rybina.listener.entity.EntityEvent;
@@ -29,8 +30,10 @@ import static org.mockito.Mockito.verify;
 //@ContextConfiguration(classes = ApplicationRunner.class, initializers = ConfigDataApplicationContextInitializer.class)
 
 //ЛИБО (equal)
-@ActiveProfiles("test")
-@SpringBootTest
+//@ActiveProfiles("test")
+//@SpringBootTest
+
+@IT
 public class CompanyServiceIT {
     private static final Integer COMPANY_ID = 1;
 
