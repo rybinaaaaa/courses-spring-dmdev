@@ -37,7 +37,6 @@ import static org.mockito.Mockito.verify;
 
 @IT
 @RequiredArgsConstructor
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class CompanyServiceIT {
     private static final Integer COMPANY_ID = 1;
 
