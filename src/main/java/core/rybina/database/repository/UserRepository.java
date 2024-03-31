@@ -38,7 +38,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findTop3ByBirthdateBefore(LocalDate birthdate, Sort sort);
 
-    @EntityGraph(value = "User.company")
+//    !!!У нас не будет работать нормально offset, limit потому, что если на одного юзера будет боьше одной локали, то на него будет выделено больше одной строки, то есть декартовое произведение
+//    Поэтому у нас будет неправильно количество строк, мы не поймем скроко строк пропускать и на сколько ограничивать
+//    Спринг выполнит этотт метод, но отфильтрует нужный результат уже сам после того, как вытащит ВСЕХ юзеров с бд. Что есть очень плохо!
+    @EntityGraph(attributePaths = {"company", "company.locales"})
 // тут мы добавили countQuery, чтобы пролемонстрировать, что тот ополнительный запрос, который делается для
 // узнавания кол-ва страниц (напоминаю, что работает только с типом данных Page), мы можем переписать изменив его логику
     @Query(value = "select u from User u", countQuery = "select count(distinct u.firstname) from User u")
