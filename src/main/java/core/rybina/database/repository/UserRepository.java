@@ -2,14 +2,12 @@ package core.rybina.database.repository;
 
 import core.rybina.database.entity.Role;
 import core.rybina.database.entity.User;
-import jakarta.persistence.Entity;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,9 +34,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findTop3ByBirthdateBeforeOrderByBirthdateDesc(LocalDate birthdate);
 
+    //    @Lock(LockModeType.OPTIMISTIC) - блокировка на уровне джава приложения
+//    @Lock(LockModeType.PESSIMISTIC) - блокировка на уровне БД
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<User> findTop3ByBirthdateBefore(LocalDate birthdate, Sort sort);
 
-//    !!!У нас не будет работать нормально offset, limit потому, что если на одного юзера будет боьше одной локали, то на него будет выделено больше одной строки, то есть декартовое произведение
+    //    !!!У нас не будет работать нормально offset, limit потому, что если на одного юзера будет боьше одной локали, то на него будет выделено больше одной строки, то есть декартовое произведение
 //    Поэтому у нас будет неправильно количество строк, мы не поймем скроко строк пропускать и на сколько ограничивать
 //    Спринг выполнит этотт метод, но отфильтрует нужный результат уже сам после того, как вытащит ВСЕХ юзеров с бд. Что есть очень плохо!
     @EntityGraph(attributePaths = {"company", "company.locales"})
