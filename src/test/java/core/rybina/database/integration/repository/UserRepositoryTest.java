@@ -7,8 +7,8 @@ import core.rybina.database.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
@@ -26,14 +26,16 @@ class UserRepositoryTest {
     @Test
     void checkPageable() {
         PageRequest pageable = PageRequest.of(1, 2, Sort.by("id"));
-        Slice<User> slice = userRepository.findAllBy(pageable);
-        Assertions.assertThat(slice).hasSize(2);
+        Page<User> page = userRepository.findAllBy(pageable);
+        Assertions.assertThat(page).hasSize(2);
 
-        slice.forEach(user -> System.out.println(user.getId()));
+        System.out.println(page.getTotalPages());
 
-        while (slice.hasNext()) {
-            slice = userRepository.findAllBy(slice.nextPageable());
-            slice.forEach(user -> System.out.println(user.getId()));
+        page.forEach(user -> System.out.println(user.getId()));
+
+        while (page.hasNext()) {
+            page = userRepository.findAllBy(page.nextPageable());
+            page.forEach(user -> System.out.println(user.getId()));
         }
     }
 

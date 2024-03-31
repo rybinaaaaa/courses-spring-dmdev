@@ -2,9 +2,11 @@ package core.rybina.database.repository;
 
 import core.rybina.database.entity.Role;
 import core.rybina.database.entity.User;
+import jakarta.persistence.Entity;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -28,7 +30,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("update User u " +
            "set u.role = :role " +
            "where u.id in (:ids)")
-    int updateRole(Role role, Long ...ids);
+    int updateRole(Role role, Long... ids);
 
     Optional<User> findTopByOrderByIdDesc();
 
@@ -36,7 +38,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findTop3ByBirthdateBefore(LocalDate birthdate, Sort sort);
 
-//    Collection, Stream,
-//    Streamable, Slice, Page
-    Slice<User> findAllBy(Pageable pageable);
+// тут мы добавили countQuery, чтобы пролемонстрировать, что тот ополнительный запрос, который делается для
+// узнавания кол-ва страниц (напоминаю, что работает только с типом данных Page), мы можем переписать изменив его логику
+    @Query(value = "select u from User u", countQuery = "select count(distinct u.firstname) from User u")
+    Page<User> findAllBy(Pageable pageable);
 }
