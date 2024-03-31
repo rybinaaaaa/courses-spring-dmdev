@@ -2,8 +2,8 @@ package core.rybina.database.repository;
 
 import core.rybina.database.entity.Role;
 import core.rybina.database.entity.User;
+import core.rybina.dto.PersonalInfo2;
 import jakarta.persistence.LockModeType;
-import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -47,4 +47,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 // узнавания кол-ва страниц (напоминаю, что работает только с типом данных Page), мы можем переписать изменив его логику
     @Query(value = "select u from User u", countQuery = "select count(distinct u.firstname) from User u")
     Page<User> findAllBy(Pageable pageable);
+
+//    List<PersonalInfo> findAllByCompanyId(Integer companyId);
+//    <T> List<T> findAllByCompanyId(Integer companyId, Class<T> tClass);
+
+    @Query(value = "SELECT firstname, lastname, birthdate FROM users WHERE company_id=:companyId", nativeQuery = true)
+    List<PersonalInfo2> findAllByCompanyId(Integer companyId);
 }

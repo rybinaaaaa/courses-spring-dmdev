@@ -4,6 +4,7 @@ import core.rybina.database.entity.Role;
 import core.rybina.database.entity.User;
 import core.rybina.database.integration.annotation.IT;
 import core.rybina.database.repository.UserRepository;
+import core.rybina.dto.PersonalInfo;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -74,5 +75,12 @@ class UserRepositoryTest {
         List<User> users = userRepository.findAllBy("a", "ov");
         Assertions.assertThat(users).hasSize(3);
         System.out.println(users);
+    }
+
+    @Test
+    void checkProjection() {
+        var users = userRepository.findAllByCompanyId(1);
+        Assertions.assertThat(users).hasSize(2);
+        System.out.println();
     }
 }
