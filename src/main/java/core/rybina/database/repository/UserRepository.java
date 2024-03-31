@@ -3,6 +3,7 @@ package core.rybina.database.repository;
 import core.rybina.database.entity.Role;
 import core.rybina.database.entity.User;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,5 +36,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findTop3ByBirthdateBefore(LocalDate birthdate, Sort sort);
 
-    List<User> findAllBy(Pageable pageable);
+//    Collection, Stream,
+//    Streamable, Slice, Page
+    Slice<User> findAllBy(Pageable pageable);
 }
