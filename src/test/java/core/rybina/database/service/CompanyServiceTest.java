@@ -2,7 +2,6 @@ package core.rybina.database.service;
 
 import core.rybina.database.entity.Company;
 import core.rybina.database.integration.annotation.IT;
-import core.rybina.database.repository.CrudRepository;
 import core.rybina.dto.CompanyReadDto;
 import core.rybina.listener.entity.EntityEvent;
 import lombok.RequiredArgsConstructor;
