@@ -25,6 +25,14 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
 
     @Test
+    void checkAuditing() {
+        User ivan = userRepository.findById(1L).get();
+        ivan.setBirthdate(ivan.getBirthdate().plusYears(1));
+        userRepository.flush();
+        System.out.println();
+    }
+
+    @Test
     void checkPageable() {
         PageRequest pageable = PageRequest.of(1, 2, Sort.by("id"));
         Page<User> page = userRepository.findAllBy(pageable);
