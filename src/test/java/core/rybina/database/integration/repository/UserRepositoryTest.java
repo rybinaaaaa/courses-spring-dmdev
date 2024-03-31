@@ -35,7 +35,10 @@ class UserRepositoryTest {
 
         while (page.hasNext()) {
             page = userRepository.findAllBy(page.nextPageable());
-            page.forEach(user -> System.out.println(user.getId()));
+            page.forEach(user -> {
+                user.getCompany().getName();
+                System.out.println(user.getId());
+            });
         }
     }
 

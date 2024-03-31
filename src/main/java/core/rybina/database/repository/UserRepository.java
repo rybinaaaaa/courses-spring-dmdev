@@ -38,6 +38,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findTop3ByBirthdateBefore(LocalDate birthdate, Sort sort);
 
+    @EntityGraph(value = "User.company")
 // тут мы добавили countQuery, чтобы пролемонстрировать, что тот ополнительный запрос, который делается для
 // узнавания кол-ва страниц (напоминаю, что работает только с типом данных Page), мы можем переписать изменив его логику
     @Query(value = "select u from User u", countQuery = "select count(distinct u.firstname) from User u")
