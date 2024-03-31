@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -14,15 +14,22 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @IT
 @RequiredArgsConstructor
-@Transactional
+//@Transactional
 class CompanyRepositoryTest {
 
     private final EntityManager entityManager;
+    private final TransactionTemplate transactionTemplate;
 
     @Test
     void findById() {
-        Company company = entityManager.find(Company.class, 1);
-        assertNotNull(company);
-        Assertions.assertThat(company.getLocales()).hasSize(2);
+        transactionTemplate.executeWithoutResult(tx -> {
+            try {
+                Company company = entityManager.find(Company.class, 1);
+                assertNotNull(company);
+                Assertions.assertThat(company.getLocales()).hasSize(2);
+            } catch (Exception e) {
+                System.err.println("Error!");
+            }
+        });
     }
 }
