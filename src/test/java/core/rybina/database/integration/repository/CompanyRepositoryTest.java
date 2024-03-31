@@ -23,13 +23,9 @@ class CompanyRepositoryTest {
     @Test
     void findById() {
         transactionTemplate.executeWithoutResult(tx -> {
-            try {
                 Company company = entityManager.find(Company.class, 1);
                 assertNotNull(company);
                 Assertions.assertThat(company.getLocales()).hasSize(2);
-            } catch (Exception e) {
-                System.err.println("Error!");
-            }
         });
     }
 }
