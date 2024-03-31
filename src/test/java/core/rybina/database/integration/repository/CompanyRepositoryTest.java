@@ -42,4 +42,10 @@ class CompanyRepositoryTest {
         maybeCompany.ifPresent(companyRepository::delete);
         entityManager.flush();
     }
+
+    @Test
+    void checkFindByQueries() {
+        companyRepository.findByName("Google");
+        companyRepository.findByNameContainingIgnoreCase("a");
+    }
 }
