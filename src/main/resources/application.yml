@@ -20,11 +20,25 @@ db:
       timeout: 3
 
 
-spring.profiles.active: qa
+spring:
+  profiles.active: qa
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties.hibernate:
+      show_sql: true
+      format_sql: true
+      hbm2ddl.auto: validate
+
+
 logging:
   level:
-    root: DEBUG
+    root: INFO
     core.rybina.config.JpaConfiguration: INFO
-    core.rybina.config: DEBUG
+    core.rybina.config: INFO
   file:
     name: ./src/main/java/core/rybina/rybina.log
+
