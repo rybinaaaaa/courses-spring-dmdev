@@ -13,7 +13,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+//спринг будет автоматически искать FilterUserRepositoryImpl
+public interface UserRepository extends JpaRepository<User, Long>, FilterUserRepository {
 
     @Query("from User u " +
            "where u.firstname like %:firstname% and u.lastname like %:lastname%")
