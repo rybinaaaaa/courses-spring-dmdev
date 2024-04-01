@@ -11,11 +11,13 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import static core.rybina.database.entity.QUser.user;
 
@@ -24,6 +26,7 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
 
     private final EntityManager entityManager;
     private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final String FIND_ALL_BY_COMPANY_AND_ROLE = """
             select firstname, lastname, birthdate 
@@ -34,6 +37,12 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
             set company_id = ?,
             role = ?
             where id = ?""";
+
+    private static final String UPDATE_COMPANY_AND_ROLE_NAMED = """
+            update users
+            set company_id = :companyId,
+            role = :role
+            where id = :id""";
 
     @Override
     public List<User> findAllByFiler(UserFilter filter) {
@@ -64,5 +73,15 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
     public void updateCompanyAnyRole(List<User> users) {
         List<Object[]> args = users.stream().map(user -> new Object[]{user.getCompany().getId(), user.getRole().name(), user.getId()}).toList();
         jdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE, args);
+    }
+
+    public void updateCompanyAnyRoleNamed(List<User> users) {
+        var args = users.stream().map(user -> Map.of(
+                "companyId", user.getCompany().getId(),
+                "role", user.getRole().name(),
+                "id", user.getId()))
+                .map(MapSqlParameterSource::new)
+                .toArray(MapSqlParameterSource[]::new);
+        namedParameterJdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE_NAMED, args);
     }
 }

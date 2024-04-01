@@ -32,6 +32,7 @@ spring:
       show_sql: true
       format_sql: true
       hbm2ddl.auto: update
+      jdbc.batch_size: 50
 
 
 logging:
