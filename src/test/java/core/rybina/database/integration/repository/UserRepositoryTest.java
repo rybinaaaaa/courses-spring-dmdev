@@ -100,4 +100,11 @@ class UserRepositoryTest {
         Assertions.assertThat(usersInfo).hasSize(1);
         System.out.println();
     }
+
+    @Test
+    void checkBatch() {
+        List<User> users = userRepository.findAll();
+        userRepository.updateCompanyAnyRole(users);
+        System.out.println();
+    }
 }

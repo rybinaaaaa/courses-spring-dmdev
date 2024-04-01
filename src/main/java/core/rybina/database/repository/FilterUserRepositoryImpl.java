@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +28,12 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
     private static final String FIND_ALL_BY_COMPANY_AND_ROLE = """
             select firstname, lastname, birthdate 
             from users where company_id = ? and role = ?""";
+
+    private static final String UPDATE_COMPANY_AND_ROLE = """
+            update users
+            set company_id = ?,
+            role = ?
+            where id = ?""";
 
     @Override
     public List<User> findAllByFiler(UserFilter filter) {
@@ -51,5 +58,11 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
                 return new PersonalInfo(rs.getString("firstname"), rs.getString("lastname"), rs.getDate("birthdate").toLocalDate());
             }
         }, companyId, role.name());
+    }
+
+    @Override
+    public void updateCompanyAnyRole(List<User> users) {
+        List<Object[]> args = users.stream().map(user -> new Object[]{user.getCompany().getId(), user.getRole().name(), user.getId()}).toList();
+        jdbcTemplate.batchUpdate(UPDATE_COMPANY_AND_ROLE, args);
     }
 }
