@@ -2,6 +2,7 @@ package core.rybina.database.integration.repository;
 
 import core.rybina.database.entity.Role;
 import core.rybina.database.entity.User;
+import core.rybina.database.integration.IntegrationTestBase;
 import core.rybina.database.integration.annotation.IT;
 import core.rybina.database.repository.UserRepository;
 import core.rybina.dto.PersonalInfo;
@@ -20,15 +21,13 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@IT
-@Sql({"classpath:sql/data.sql"})
 @RequiredArgsConstructor
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationTestBase {
 
     private final UserRepository userRepository;
 
     @Test
-    @Commit
+//    @Commit
     void checkAuditing() {
         User ivan = userRepository.findById(1L).get();
         ivan.setBirthdate(ivan.getBirthdate().plusYears(1));

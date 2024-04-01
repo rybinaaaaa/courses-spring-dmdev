@@ -1,6 +1,7 @@
 package core.rybina.database.integration.repository;
 
 import core.rybina.database.entity.Company;
+import core.rybina.database.integration.IntegrationTestBase;
 import core.rybina.database.integration.annotation.IT;
 import core.rybina.database.repository.CompanyRepository;
 import jakarta.persistence.EntityManager;
@@ -16,10 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 //import static org.junit.jupiter.api.Assertions.*;
 
-@IT
 @RequiredArgsConstructor
 //@Transactional
-class CompanyRepositoryTest {
+class CompanyRepositoryTest extends IntegrationTestBase {
 
     private static final Integer APPLE_ID = 5;
     private final EntityManager entityManager;

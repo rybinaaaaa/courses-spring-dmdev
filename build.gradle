@@ -6,6 +6,8 @@ plugins {
 //    id("com.ewerk.gradle.plugins.querydsl") version "1.0.10"
 }
 
+apply from: 'version.gradle'
+
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
@@ -47,6 +49,7 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2'
+    testImplementation "org.testcontainers:postgresql:${versions.testContainers}"
 }
 
 test {
