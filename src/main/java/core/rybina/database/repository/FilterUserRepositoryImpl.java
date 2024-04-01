@@ -1,16 +1,21 @@
 package core.rybina.database.repository;
 
+import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.impl.JPAQuery;
+import core.rybina.database.entity.QUser;
 import core.rybina.database.entity.User;
+import core.rybina.database.querydsl.QPredicates;
 import core.rybina.dto.UserFilter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static core.rybina.database.entity.QUser.user;
 
 @RequiredArgsConstructor
 public class FilterUserRepositoryImpl implements FilterUserRepository {
@@ -19,25 +24,16 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
 
     @Override
     public List<User> findAllByFiler(UserFilter filter) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+        Predicate predicate = QPredicates.builer()
+                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+                .add(filter.lastname(), user.lastname::containsIgnoreCase)
+                .add(filter.birthdate(), user.birthdate::before)
+                .build();
 
-        Root<User> userRoot = criteria.from(User.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        if (filter.firstname() != null) {
-            predicates.add(cb.like(userRoot.get("firstname"), filter.firstname()));
-        }
-        if (filter.lastname() != null) {
-            predicates.add(cb.like(userRoot.get("lastname"), filter.lastname()));
-        }
-        if (filter.birthdate() != null) {
-            predicates.add(cb.lessThan(userRoot.get("birthdate"), filter.birthdate()));
-        }
-
-        criteria.select(userRoot).where(predicates.toArray(Predicate[]::new));
-
-        return entityManager.createQuery(criteria).getResultList();
+        return new JPAQuery<User>(entityManager)
+                .select(user)
+                .from(user)
+                .where(predicate)
+                .fetch();
     }
 }
