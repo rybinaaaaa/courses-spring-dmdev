@@ -93,4 +93,11 @@ class UserRepositoryTest {
         Assertions.assertThat(users).hasSize(2);
         System.out.println();
     }
+
+    @Test
+    void checkJdbcTemplate() {
+        List<PersonalInfo> usersInfo = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
+        Assertions.assertThat(usersInfo).hasSize(1);
+        System.out.println();
+    }
 }

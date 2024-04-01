@@ -39,6 +39,7 @@ logging:
     root: INFO
     core.rybina.config.JpaConfiguration: INFO
     core.rybina.config: INFO
+    org.springframework.jdbc.core: DEBUG
   file:
     name: ./src/main/java/core/rybina/rybina.log
 
