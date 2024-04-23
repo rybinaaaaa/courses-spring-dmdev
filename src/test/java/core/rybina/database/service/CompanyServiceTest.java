@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.Optional;
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.*;
 class CompanyServiceTest {
     private static final Integer COMPANY_ID = 1;
 
+    @Autowired
     private final CompanyService companyService;
 
     @Test

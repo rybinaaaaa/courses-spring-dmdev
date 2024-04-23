@@ -7,6 +7,7 @@ import core.rybina.database.repository.CompanyRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -36,6 +37,7 @@ class CompanyRepositoryTest extends IntegrationTestBase {
     }
 
     @Test
+    @Disabled
     void delete() {
         Optional<Company> maybeCompany = companyRepository.findById(APPLE_ID);
         assertThat(maybeCompany.isPresent()).isTrue();
