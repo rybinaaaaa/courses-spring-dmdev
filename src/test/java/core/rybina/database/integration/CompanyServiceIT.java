@@ -1,6 +1,7 @@
 package core.rybina.database.integration;
 
 import core.rybina.ApplicationRunner;
+import core.rybina.config.DbProperties;
 import core.rybina.database.entity.Company;
 import core.rybina.database.integration.annotation.IT;
 import core.rybina.database.service.CompanyService;
@@ -37,7 +38,8 @@ import static org.mockito.Mockito.verify;
 
 @IT
 @RequiredArgsConstructor
-public class CompanyServiceIT {
+//Для использования testContainer
+public class CompanyServiceIT extends IntegrationTestBase{
     private static final Integer COMPANY_ID = 1;
 
 //    @Autowired
