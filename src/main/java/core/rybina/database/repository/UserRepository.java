@@ -62,4 +62,6 @@ public interface UserRepository extends JpaRepository<User, Long>,
 
     @Query(value = "SELECT firstname, lastname, birthdate FROM users WHERE company_id=:companyId", nativeQuery = true)
     List<PersonalInfo2> findAllByCompanyId(Integer companyId);
+
+    User saveAndFlush(User user);
 }

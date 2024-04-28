@@ -6,12 +6,11 @@ import lombok.Value;
 import java.time.LocalDate;
 
 @Value
-public class UserReadDto {
-    Long id;
+public class UserCreateEditDto {
     String username;
     String firstname;
     String lastname;
     LocalDate birthdate;
     Role role;
-    CompanyReadDto company;
+    Integer companyId;
 }
