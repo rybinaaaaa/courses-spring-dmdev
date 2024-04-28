@@ -5,6 +5,7 @@
     <title>Hello</title>
 </head>
 <body>
-Hello jsp
+Hello ${requestScope.user.username} with id ${requestScope.user.id}
+<a href="http://localhost:8080/api/v1/bye">Bye</a>
 </body>
 </html>
