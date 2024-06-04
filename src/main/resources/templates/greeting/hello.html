@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+<body>
+<!--Hello ${requestScope.user.username} with id ${requestScope.user.id}-->
+<!--<a href="http://localhost:8080/api/v1/bye">Bye</a>-->
+<!--<p>Hello <span th:text="${user.username}">Dummy text</span></p>-->
+<p th:text="|Hello ${user.username}|">Dummy</p>
+</body>
+</html>

@@ -30,6 +30,7 @@ public class GreetingController {
 
     @RequestMapping(value = "/bye", method = RequestMethod.GET)
     public ModelAndView bye(ModelAndView modelAndView, @SessionAttribute("user") UserReadDto userReadDto) {
+        modelAndView.addObject(userReadDto);
         modelAndView.setViewName("greeting/bye");
 
         return modelAndView;
