@@ -1,6 +1,5 @@
-package core.rybina.bfpp;
+package core.rybina.beanPostProcessor;
 
-import core.rybina.beanPostProcessor.InjectBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
