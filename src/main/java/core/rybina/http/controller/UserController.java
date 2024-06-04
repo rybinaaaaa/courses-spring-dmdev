@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -44,7 +45,11 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(UserCreateEditDto user) {
+    public String create(@ModelAttribute UserCreateEditDto user, RedirectAttributes redirectAttributes) {
+        if (true) {
+            redirectAttributes.addFlashAttribute("user", user);
+            return "redirect:/users/registration";
+        }
         return "redirect:/users/" + userService.create(user).getId();
     }
 
@@ -63,5 +68,16 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "redirect:/users";
+    }
+
+    @GetMapping("/registration")
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
+        List<CompanyReadDto> companies = companyService.findAll();
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("companies", companies);
+
+        return "user/registration";
     }
 }
