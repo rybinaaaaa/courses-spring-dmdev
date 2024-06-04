@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @Table(name = "users")
-public class User extends AuditingEntity<Long>{
+public class User extends AuditingEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,7 @@ public class User extends AuditingEntity<Long>{
     @Column(unique = true, nullable = false)
     private String username;
 
+    @Column(name = "birth_date")
     private LocalDate birthdate;
 
     private String firstname;

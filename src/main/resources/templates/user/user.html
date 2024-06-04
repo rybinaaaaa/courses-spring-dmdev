@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+<!--<form th:action="@{users/{userId}/update(userId=user.id)}" method="post">-->
+<!--    <label for="username">-->
+<!--        <input id="username" type="text" name="username" th:value="${user.username}"/>-->
+<!--    </label><br>-->
+<!--    <label for="birthdate">-->
+<!--        <input id="birthdate" type="date" name="birthdate" th:value="${user.birthdate}"/>-->
+<!--    </label><br>-->
+<!--    <label for="lastname">-->
+<!--        <input id="lastname" type="text" name="lastname" th:value="${user.lastname}"/>-->
+<!--    </label><br>-->
+<!--    <label for="firstname">-->
+<!--        <input id="firstname" type="text" name="firstname" th:value="${user.firstname}"/>-->
+<!--    </label><br>-->
+<!--</form>-->
+<form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+    <label for="username">
+        <input id="username" type="text" name="username" th:value="*{username}"/>
+    </label><br>
+    <label for="birthdate">
+        <input id="birthdate" type="date" name="birthdate" th:value="*{birthdate}"/>
+    </label><br>
+    <label for="lastname">
+        <input id="lastname" type="text" name="lastname" th:value="*{lastname}"/>
+    </label><br>
+    <label for="firstname">
+        <input id="firstname" type="text" name="firstname" th:value="*{firstname}"/>
+    </label><br>
+    <div th:each="role : ${roles}">
+        <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
+        <label th:for="${role}" th:text="${role}">Dummy role</label>
+    </div>
+    <div>
+        <label for="company">
+            <select id="company" name="companyId">
+                <option th:each="company : ${companies}"
+                        th:value="${company.id()}"
+                        th:selected="${company.id() == user.company.id()}"
+                        th:text="${company.name()}">Dummy company
+                </option>
+            </select>
+        </label>
+    </div>
+    <button type="submit">Edit user</button>
+</form>
+<form th:action="@{/users/{userId}/delete(userId=${user.id})}" th:if="${user.role.name == 'ADMIN'}" method="post">
+    <button type="submit">Remove user</button>
+</form>
+</body>
+</html>
