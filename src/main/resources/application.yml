@@ -25,6 +25,8 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+    format:
+      date: iso
   profiles.active: qa
   datasource:
     url: jdbc:postgresql://localhost:5433/postgres
@@ -37,6 +39,7 @@ spring:
       format_sql: true
       hbm2ddl.auto: update
       jdbc.batch_size: 50
+    open-in-view: false
 
 
 logging:
@@ -47,4 +50,3 @@ logging:
     org.springframework.jdbc.core: DEBUG
   file:
     name: ./src/main/java/core/rybina/rybina.log
-
