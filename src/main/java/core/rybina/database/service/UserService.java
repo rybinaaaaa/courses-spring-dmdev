@@ -2,6 +2,7 @@ package core.rybina.database.service;
 
 import core.rybina.database.repository.UserRepository;
 import core.rybina.dto.UserCreateEditDto;
+import core.rybina.dto.UserFilter;
 import core.rybina.dto.UserReadDto;
 import core.rybina.mapper.UserCreateEditMapper;
 import core.rybina.mapper.UserReadMapper;
@@ -22,6 +23,12 @@ public class UserService {
 
     public List<UserReadDto> findAll() {
         return userRepository.findAll().stream()
+                .map(userReadMapper::map)
+                .toList();
+    }
+
+    public List<UserReadDto> findAll(UserFilter userFilter) {
+        return userRepository.findAllByFiler(userFilter).stream()
                 .map(userReadMapper::map)
                 .toList();
     }

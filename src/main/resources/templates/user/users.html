@@ -8,8 +8,20 @@
     <title>Login</title>
 </head>
 <body>
-    <div th:each="user : ${users}">
-        <a th:href="@{'/users/' + ${user.id}}" th:text="|${user.id}. ${user.username}|">Dummy</a>
-    </div>
+<form action="/users">
+    <label for="firstname">
+        <input id="firstname" type="text" name="firstname">
+    </label>
+    <label for="lastname">
+        <input id="lastname" type="text" name="lastname">
+    </label>
+    <label for="birthdate">
+        <input id="birthdate" type="date" name="birthdate">
+    </label>
+    <button type="submit">Filter</button>
+</form>
+<div th:each="user : ${users}">
+    <a th:href="@{'/users/' + ${user.id}}" th:text="|${user.id}. ${user.username}|">Dummy</a>
+</div>
 </body>
 </html>

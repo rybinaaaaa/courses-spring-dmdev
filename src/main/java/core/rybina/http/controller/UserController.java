@@ -5,6 +5,7 @@ import core.rybina.database.service.CompanyService;
 import core.rybina.database.service.UserService;
 import core.rybina.dto.CompanyReadDto;
 import core.rybina.dto.UserCreateEditDto;
+import core.rybina.dto.UserFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -25,8 +26,8 @@ public class UserController {
     private final CompanyService companyService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String findAll(Model model, UserFilter userFilter) {
+        model.addAttribute("users", userService.findAll(userFilter));
         return "user/users";
     }
 
@@ -46,10 +47,10 @@ public class UserController {
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
     public String create(@ModelAttribute UserCreateEditDto user, RedirectAttributes redirectAttributes) {
-        if (true) {
-            redirectAttributes.addFlashAttribute("user", user);
-            return "redirect:/users/registration";
-        }
+//        if (true) {
+//            redirectAttributes.addFlashAttribute("user", user);
+//            return "redirect:/users/registration";
+//        }
         return "redirect:/users/" + userService.create(user).getId();
     }
 
