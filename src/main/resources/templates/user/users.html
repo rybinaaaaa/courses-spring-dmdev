@@ -10,17 +10,27 @@
 <body>
 <form action="/users">
     <label for="firstname">
-        <input id="firstname" type="text" name="firstname">
+        <input id="firstname" type="text" name="firstname" th:value="${filter.firstname}">
     </label>
     <label for="lastname">
-        <input id="lastname" type="text" name="lastname">
+        <input id="lastname" type="text" name="lastname" th:value="${filter.lastname}">
     </label>
     <label for="birthdate">
-        <input id="birthdate" type="date" name="birthdate">
+        <input id="birthdate"
+               th:value="${filter.birthdate == null ? #dates.format(#dates.createNow(), 'yyyy-MM-dd') : filter.birthdate}"
+               type="date" name="birthdate">
     </label>
+    <div>
+        <label for="page">
+            <input id="page" type="text" name="page" th:value="${users.metadata.getPage()}">
+        </label>
+        <label for="size">
+            <input id="size" type="text" name="size" th:value="${users.metadata.getSize()}">
+        </label>
+    </div>
     <button type="submit">Filter</button>
 </form>
-<div th:each="user : ${users}">
+<div th:each="user : ${users.content}">
     <a th:href="@{'/users/' + ${user.id}}" th:text="|${user.id}. ${user.username}|">Dummy</a>
 </div>
 </body>

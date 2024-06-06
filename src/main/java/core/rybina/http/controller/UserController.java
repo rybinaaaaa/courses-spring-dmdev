@@ -3,10 +3,10 @@ package core.rybina.http.controller;
 import core.rybina.database.entity.Role;
 import core.rybina.database.service.CompanyService;
 import core.rybina.database.service.UserService;
-import core.rybina.dto.CompanyReadDto;
-import core.rybina.dto.UserCreateEditDto;
-import core.rybina.dto.UserFilter;
+import core.rybina.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +26,10 @@ public class UserController {
     private final CompanyService companyService;
 
     @GetMapping
-    public String findAll(Model model, UserFilter userFilter) {
-        model.addAttribute("users", userService.findAll(userFilter));
+    public String findAll(Model model, UserFilter userFilter, Pageable pageable) {
+        Page<UserReadDto> users = userService.findAll(userFilter, pageable);
+        model.addAttribute("users", PageResponse.of(users));
+        model.addAttribute("filter", (userFilter));
         return "user/users";
     }
 

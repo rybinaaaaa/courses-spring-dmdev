@@ -1,5 +1,7 @@
 package core.rybina.database.service;
 
+import com.querydsl.core.types.Predicate;
+import core.rybina.database.querydsl.QPredicates;
 import core.rybina.database.repository.UserRepository;
 import core.rybina.dto.UserCreateEditDto;
 import core.rybina.dto.UserFilter;
@@ -7,11 +9,15 @@ import core.rybina.dto.UserReadDto;
 import core.rybina.mapper.UserCreateEditMapper;
 import core.rybina.mapper.UserReadMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import static core.rybina.database.entity.QUser.user;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +33,15 @@ public class UserService {
                 .toList();
     }
 
-    public List<UserReadDto> findAll(UserFilter userFilter) {
-        return userRepository.findAllByFiler(userFilter).stream()
-                .map(userReadMapper::map)
-                .toList();
+    public Page<UserReadDto> findAll(UserFilter userFilter, Pageable pageable) {
+        Predicate predicate = QPredicates.builer()
+                .add(userFilter.firstname(), user.firstname::containsIgnoreCase)
+                .add(userFilter.lastname(), user.lastname::containsIgnoreCase)
+                .add(userFilter.birthdate(), user.birthdate::before)
+                .build();
+
+        return userRepository.findAll(predicate, pageable)
+                .map(userReadMapper::map);
     }
 
     public Optional<UserReadDto> findById(Long id) {
