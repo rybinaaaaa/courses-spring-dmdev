@@ -43,6 +43,8 @@ public class User extends AuditingEntity<Long> {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    private String image;
+
     @Builder.Default
     @NotAudited
     @OneToMany(mappedBy = "user")

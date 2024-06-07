@@ -22,7 +22,7 @@
 <!--        <input id="firstname" type="text" name="firstname" th:value="${user.firstname}"/>-->
 <!--    </label><br>-->
 <!--</form>-->
-<form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+<form th:action="@{/users/{userId}/update(userId=${user.id})}" enctype="multipart/form-data" method="post" th:object="${user}">
     <label for="username">
         <input id="username" type="text" name="username" th:value="*{username}"/>
     </label><br>
@@ -31,6 +31,9 @@
     </label><br>
     <label for="lastname">
         <input id="lastname" type="text" name="lastname" th:value="*{lastname}"/>
+    </label><br>
+    <label for="image">
+        <input id="image" type="file" name="image"/>
     </label><br>
     <label for="firstname">
         <input id="firstname" type="text" name="firstname" th:value="*{firstname}"/>

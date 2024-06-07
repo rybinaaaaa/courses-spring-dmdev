@@ -7,6 +7,7 @@ import core.rybina.dto.UserCreateEditDto;
 import core.rybina.dto.UserReadDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -37,6 +38,11 @@ public class UserCreateEditMapper implements Mapper<UserCreateEditDto, User> {
         user.setBirthdate(from.getBirthdate());
         user.setRole(from.getRole());
         user.setCompany(getCompany(from.getCompanyId()));
+
+        Optional.ofNullable(from.getImage())
+                .filter(MultipartFile::isEmpty)
+                .ifPresent(image -> user.setImage(image.getOriginalFilename()));
+
     }
 
     public Company getCompany(Integer id) {
