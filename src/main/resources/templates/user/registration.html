@@ -2,9 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
 </head>
 <body>
@@ -13,7 +10,9 @@
         <input id="username" type="text" name="username" th:value="*{username}"/>
     </label><br>
     <label for="birthdate">
-        <input id="birthdate" type="date" name="birthdate" th:value="*{birthdate}"/>
+        <input id="birthdate" type="date" name="birthdate"
+               th:value="${user.birthdate == null ? #dates.format(#dates.createNow(), 'yyyy-MM-dd') : user.birthdate}"
+        />
     </label><br>
     <label for="lastname">
         <input id="lastname" type="text" name="lastname" th:value="*{lastname}"/>
@@ -38,5 +37,10 @@
     </div>
     <button type="submit">Register</button>
 </form>
+<div th:if="${errors}">
+    <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">
+        Dummy error
+    </p>
+</div>
 </body>
 </html>
