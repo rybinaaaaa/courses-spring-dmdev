@@ -53,7 +53,7 @@ public class UserController {
     public String create(@ModelAttribute @Validated UserCreateEditDto user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", user);
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getFieldErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/users/registration";
         }
         return "redirect:/users/" + userService.create(user).getId();

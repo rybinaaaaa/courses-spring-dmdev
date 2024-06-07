@@ -1,6 +1,7 @@
 package core.rybina.dto;
 
 import core.rybina.database.entity.Role;
+import core.rybina.validation.UserInfo;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,16 +13,17 @@ import java.time.LocalDate;
 
 @FieldNameConstants
 @Value
+@UserInfo
 public class UserCreateEditDto {
 
     @Email
     String username;
 
-    @NotNull
+//    @NotNull
     String firstname;
 
-    @NotNull
-    @Size(min = 3, max = 50)
+//    @NotNull
+//    @Size(min = 3, max = 50)
     String lastname;
 
     @NotNull
