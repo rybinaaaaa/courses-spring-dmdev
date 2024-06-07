@@ -27,6 +27,11 @@ public class UserController {
     private final UserService userService;
     private final CompanyService companyService;
 
+//    @ExceptionHandler(Exception.class)
+//    public String handleException(Exception e) {
+//        return "error";
+//    }
+
     @GetMapping
     public String findAll(Model model, UserFilter userFilter, Pageable pageable) {
         Page<UserReadDto> users = userService.findAll(userFilter, pageable);
