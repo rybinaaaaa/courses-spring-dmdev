@@ -5,15 +5,20 @@ import core.rybina.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import static org.springframework.http.ResponseEntity.*;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/users")
+@RequestMapping("/api/v1/users")
 public class UserRestController {
 
     private final UserService userService;
@@ -43,11 +48,34 @@ public class UserRestController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+//    @DeleteMapping("/{id}/delete")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void delete(@PathVariable("id") Long id) {
+//        if (!userService.delete(id)) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
+//    }
+
     @DeleteMapping("/{id}/delete")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Long id) {
-        if (!userService.delete(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        return userService.delete(id)
+                ? noContent().build()
+                : notFound().build();
+    }
+
+//    @GetMapping(value = "/{id}/avatar", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+//    public byte[] findAvatar(@PathVariable("id") Long id) {
+//        return userService.findAvatar(id)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//    }
+
+    @GetMapping(value = "/{id}/avatar", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<byte[]> findAvatar(@PathVariable("id") Long id) {
+        return userService.findAvatar(id)
+                .map(content -> ok()
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                        .contentLength(content.length)
+                        .body(content))
+                .orElseGet(notFound()::build);
     }
 }

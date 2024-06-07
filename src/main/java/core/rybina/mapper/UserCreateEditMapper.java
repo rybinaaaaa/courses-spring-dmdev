@@ -40,7 +40,7 @@ public class UserCreateEditMapper implements Mapper<UserCreateEditDto, User> {
         user.setCompany(getCompany(from.getCompanyId()));
 
         Optional.ofNullable(from.getImage())
-                .filter(MultipartFile::isEmpty)
+                .filter(image -> !image.isEmpty())
                 .ifPresent(image -> user.setImage(image.getOriginalFilename()));
 
     }

@@ -42,6 +42,9 @@
         <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
         <label th:for="${role}" th:text="${role}">Dummy role</label>
     </div>
+    <div th:if="${user.image}">
+        <img th:src="@{/api/v1/users/{userId}/avatar(userId=${user.id})}" alt="user image">
+    </div>
     <div>
         <label for="company">
             <select id="company" name="companyId">

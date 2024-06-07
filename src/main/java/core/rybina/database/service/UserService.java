@@ -1,6 +1,7 @@
 package core.rybina.database.service;
 
 import com.querydsl.core.types.Predicate;
+import core.rybina.database.entity.User;
 import core.rybina.database.querydsl.QPredicates;
 import core.rybina.database.repository.UserRepository;
 import core.rybina.dto.UserCreateEditDto;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -69,6 +71,13 @@ public class UserService {
         if (!image.isEmpty()) {
             imageService.upload(image.getOriginalFilename(), image.getInputStream());
         }
+    }
+
+    public Optional<byte[]> findAvatar(Long id) {
+        return userRepository.findById(id)
+                .map(User::getImage)
+                .filter(StringUtils::hasText)
+                .flatMap(imageService::get);
     }
 
     @Transactional

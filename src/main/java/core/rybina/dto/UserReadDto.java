@@ -14,4 +14,5 @@ public class UserReadDto {
     LocalDate birthdate;
     Role role;
     CompanyReadDto company;
+    String image;
 }

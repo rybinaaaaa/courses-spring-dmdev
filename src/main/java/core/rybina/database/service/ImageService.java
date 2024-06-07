@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +20,20 @@ public class ImageService {
 
     @SneakyThrows
     public void upload(String imagePath, InputStream content) {
-        Path path = Path.of(bucket, imagePath);
+        Path fullImagePath = Path.of(bucket, imagePath);
 
         try (content) {
-            Files.createDirectories(path.getParent());
-            Files.write(path, content.readAllBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.createDirectories(fullImagePath.getParent());
+            Files.write(fullImagePath, content.readAllBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         }
+    }
+
+    @SneakyThrows
+    public Optional <byte[]> get(String imagePath) {
+        Path fullImagePath = Path.of(bucket, imagePath);
+
+        return Files.exists(fullImagePath)
+                ? Optional.of(Files.readAllBytes(fullImagePath))
+                : Optional.empty();
     }
 }
