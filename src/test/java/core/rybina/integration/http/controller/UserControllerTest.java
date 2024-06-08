@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -27,21 +28,22 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 //Имитация http запросы
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
+@WithMockUser(username = "test@gmail.com", authorities = {"ADMIN", "USER"})
 class UserControllerTest extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
 
-    @BeforeEach
-    void init() {
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-
-        List<GrantedAuthority> roles = Arrays.asList(Role.ADMIN, Role.USER);
-        User user = new User("test@gmail.com", "test", roles);
-
-        TestingAuthenticationToken token = new TestingAuthenticationToken(user, user.getPassword(), roles);
-        context.setAuthentication(token);
-        SecurityContextHolder.setContext(context);
-    }
+//    @BeforeEach
+//    void init() {
+//        SecurityContext context = SecurityContextHolder.createEmptyContext();
+//
+//        List<GrantedAuthority> roles = Arrays.asList(Role.ADMIN, Role.USER);
+//        User user = new User("test@gmail.com", "test", roles);
+//
+//        TestingAuthenticationToken token = new TestingAuthenticationToken(user, user.getPassword(), roles);
+//        context.setAuthentication(token);
+//        SecurityContextHolder.setContext(context);
+//    }
 
     @Test
     void findAll() throws Exception {
