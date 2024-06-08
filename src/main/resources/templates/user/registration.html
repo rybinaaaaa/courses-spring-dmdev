@@ -5,20 +5,26 @@
     <title>Login</title>
 </head>
 <body>
-<form th:action="@{/users}" method="post" th:object="${user}">
-    <label for="username">
+<form th:action="@{/users}" enctype="multipart/form-data" method="post" th:object="${user}">
+    <label for="username">Username:
         <input id="username" type="text" name="username" th:value="*{username}"/>
     </label><br>
-    <label for="birthdate">
+    <label for="birthdate">Birthdate:
         <input id="birthdate" type="date" name="birthdate"
                th:value="${user.birthdate == null ? #dates.format(#dates.createNow(), 'yyyy-MM-dd') : user.birthdate}"
         />
     </label><br>
-    <label for="lastname">
+    <label for="lastname">Lastname:
         <input id="lastname" type="text" name="lastname" th:value="*{lastname}"/>
     </label><br>
-    <label for="firstname">
+    <label for="firstname"> Firstname:
         <input id="firstname" type="text" name="firstname" th:value="*{firstname}"/>
+    </label><br>
+    <label for="rowPassword"> Password:
+        <input id="rowPassword" type="password" name="rowPassword"/>
+    </label><br>
+    <label for="image">Image:
+        <input id="image" type="file" name="image"/>
     </label><br>
     <div th:each="role : ${roles}">
         <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">

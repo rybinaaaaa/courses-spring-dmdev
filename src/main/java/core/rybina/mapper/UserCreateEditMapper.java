@@ -6,7 +6,9 @@ import core.rybina.database.repository.CompanyRepository;
 import core.rybina.dto.UserCreateEditDto;
 import core.rybina.dto.UserReadDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class UserCreateEditMapper implements Mapper<UserCreateEditDto, User> {
 
     private final CompanyRepository companyRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User map(UserCreateEditDto from, User toObject) {
@@ -38,6 +41,11 @@ public class UserCreateEditMapper implements Mapper<UserCreateEditDto, User> {
         user.setBirthdate(from.getBirthdate());
         user.setRole(from.getRole());
         user.setCompany(getCompany(from.getCompanyId()));
+
+        Optional.ofNullable(from.getRowPassword())
+                        .filter(StringUtils::hasText)
+                                .map(passwordEncoder::encode)
+                                        .ifPresent(user::setPassword);
 
         Optional.ofNullable(from.getImage())
                 .filter(image -> !image.isEmpty())
