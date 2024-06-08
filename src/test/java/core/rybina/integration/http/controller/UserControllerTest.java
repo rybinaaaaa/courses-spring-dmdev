@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static core.rybina.dto.UserCreateEditDto.Fields.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 // Важно не использовать IsCollectionWithSize из тестконтейнеров!
@@ -28,7 +29,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 //Имитация http запросы
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
-@WithMockUser(username = "test@gmail.com", authorities = {"ADMIN", "USER"})
+//@WithMockUser(username = "test@gmail.com", authorities = {"ADMIN", "USER"})
 class UserControllerTest extends IntegrationTestBase {
 
     private final MockMvc mockMvc;
@@ -47,7 +48,8 @@ class UserControllerTest extends IntegrationTestBase {
 
     @Test
     void findAll() throws Exception {
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get("/users")
+                        .with(user("test@gmail.com").authorities(Role.ADMIN)))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("user/users"))
                 .andExpect(model().attributeExists("users"));
