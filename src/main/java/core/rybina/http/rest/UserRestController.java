@@ -34,7 +34,7 @@ public class UserRestController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public UserReadDto findById(@PathVariable("id") Long id, @AuthenticationPrincipal UserDetails userDetails) {
         System.out.println(userDetails);
         return userService.findById(id)

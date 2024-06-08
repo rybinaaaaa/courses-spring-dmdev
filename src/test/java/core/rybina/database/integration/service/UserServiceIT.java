@@ -8,6 +8,7 @@ import core.rybina.dto.UserReadDto;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,7 +45,9 @@ public class UserServiceIT extends IntegrationTestBase {
                 "Test",
                 LocalDate.now(),
                 Role.ADMIN,
-                COMPANY_1
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0]),
+                "test"
         );
 
         UserReadDto actualResult = userService.create(userCreateEditDto);
@@ -61,7 +64,9 @@ public class UserServiceIT extends IntegrationTestBase {
                 "Test",
                 LocalDate.now(),
                 Role.ADMIN,
-                COMPANY_1
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0]),
+                "test"
         );
 
         Optional<UserReadDto> actualResult = userService.update(USER_1, userCreateEditDto);
