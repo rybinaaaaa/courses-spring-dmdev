@@ -60,3 +60,10 @@ logging:
     org.springframework.jdbc.core: DEBUG
   file:
     name: ./src/main/java/core/rybina/rybina.log
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: 655729950631-k6lpgfqdof3av6qagdoqeudl2q167559.apps.googleusercontent.com
+      client-secret: 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
+      scopes: openid, email, profile
+    oauth2-redirect-url: http://localhost:8080/swagger-ui/oauth2-redirect.html
