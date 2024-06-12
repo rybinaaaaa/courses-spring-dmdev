@@ -40,6 +40,16 @@ spring:
       hbm2ddl.auto: update
       jdbc.batch_size: 50
     open-in-view: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 655729950631-k6lpgfqdof3av6qagdoqeudl2q167559.apps.googleusercontent.com
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            client-secret: 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
+            scope: openid, email, profile
+
 
 
 logging:
