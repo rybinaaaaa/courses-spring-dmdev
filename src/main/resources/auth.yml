@@ -1,0 +1,23 @@
+oauth2:
+  authorization-url: /oauth2/authorization/google
+  token-url: https://www.googleapis.com/oauth2/v4/token
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: 655729950631-k6lpgfqdof3av6qagdoqeudl2q167559.apps.googleusercontent.com
+      client-secret: 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
+      scopes: openid, email, profile
+    oauth2-redirect-url: http://localhost:8080/swagger-ui/oauth2-redirect.html
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 655729950631-k6lpgfqdof3av6qagdoqeudl2q167559.apps.googleusercontent.com
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            client-secret: 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
+            scope: openid, email, profile
+
