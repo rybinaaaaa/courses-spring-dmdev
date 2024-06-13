@@ -1,15 +1,9 @@
 package core.rybina.database.pool;
 
-import core.rybina.bfpp.Audited;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class ConnectionPool {

@@ -1,4 +1,4 @@
-package core.rybina.bfpp;
+package core.rybina.beanPostProcessor;
 
 import org.springframework.stereotype.Component;
 
